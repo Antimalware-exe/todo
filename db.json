@@ -1,26 +1,4 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    },
-    {
-      "id": 2,
-      "title": "my own post",
-      "author": "test"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  },
   "tasks": [
     {
       "text": "Go to dentist",
@@ -45,6 +23,18 @@
       "completed": false,
       "createdBy": "dummy@test.com",
       "id": 4
+    }
+  ],
+  "users": [
+    {
+      "email": "test@gmail.com",
+      "password": "$2a$10$dtLpDwg8GAc10xjdmzccbeDdQo72/g9BvSc/t6TK7UCr5lKinrvZ2",
+      "id": 1
+    },
+    {
+      "user": "newtest@gmail.com",
+      "password": "$2a$10$PpjQxoQKlZymCbkY3irUSONTbHkzoYr3yIoyuVuAPKfvK.2d3luOG",
+      "id": 2
     }
   ]
 }

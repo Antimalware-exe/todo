@@ -60,11 +60,26 @@ export default {
       if (this.email.length > 6 && this.email.includes('@') && this.password.length > 6) {
         if (this.isLoginActive) { }
         else if (this.isRegisterActive) {
-          const user = {
-            user: this.email,
-            password: bcrypt.hashSync(this.password, 10)
-          }
-          console.log(user)
+          const users = await fetch(`http://localhost:5001/users?email=${this.email}`)
+          const username = await users.json();
+
+          if (username.length === 0) {
+            const user = {
+              user: this.email,
+              password: bcrypt.hashSync(this.password, 10)
+            }
+            const res = await fetch(`http://localhost:5001/users`, {
+              method: 'POST',
+              headers: { "Content-type": "application/json" },
+              body: JSON.stringify(user)
+            })
+            if (res.status === 201) {
+              this.isRegisterActive = false
+              this.isRegistrationSuccessfull = true
+            } else {
+              alert("registration failed")
+            }
+          } else { alert("User already exists") }
         }
       } else {
         alert("Email and password should be more tha 6 characters");
