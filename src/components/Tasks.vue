@@ -3,7 +3,8 @@
     <h3 v-if="incompletedTasks.length > 0" class="status_info">In Progress</h3>
     <div class="tasks" v-for="task in incompletedTasks" v-bind:key="task.id">
       <Task @delete-task="onDelete(task.id)" @toggle-reminder="onReminder(task.id)"
-        @complete-toggle="completeToggle(task.id)" v-bind:task="task" v-bind:completed="false" />
+        @complete-toggle="completeToggle(task.id)" @edit-task="onEditTask" v-bind:task="task"
+        v-bind:completed="false" />
     </div>
 
     <h3 v-if="completedTasks.length > 0" class="completed status_info">Completed</h3>
@@ -25,9 +26,10 @@ export default {
   methods: {
     onDelete(id) { this.$emit("delete-task", id); },
     onReminder(id) { this.$emit("toggle-reminder", id); },
-    completeToggle(id) { this.$emit("complete-toggle", id); }
+    completeToggle(id) { this.$emit("complete-toggle", id); },
+    onEditTask(editedTask) { this.$emit("edit-task", editedTask); }
   },
-  emits: ["delete-task", "toggle-reminder", "complete-toggle"]
+  emits: ["delete-task", "toggle-reminder", "complete-toggle", "edit-task"]
 }</script>
 
 <style>

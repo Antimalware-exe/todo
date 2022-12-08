@@ -3,8 +3,9 @@
     <div v-if="showAddTask">
       <AddTask @new-task="createNewTask" />
     </div>
-    <Tasks @delete-task="onDelete" @complete-toggle="completeToggle" @toggle-reminder="reminderToggle"
-      v-bind:completedTasks='completedTasks' v-bind:incompletedTasks='incompletedTasks' />
+    <Tasks @delete-task="onDelete" @complete-toggle="completeToggle" @edit-task="onEditTask"
+      @toggle-reminder="reminderToggle" v-bind:completedTasks='completedTasks'
+      v-bind:incompletedTasks='incompletedTasks' />
   </div>
 </template>
 
@@ -74,6 +75,17 @@ export default {
         this.incompletedTasks = [...this.incompletedTasks, data];
         this.completedTasks = this.completedTasks.filter((task) => task.id !== id)
       }
+    },
+    async onEditTask(editedTask) {
+      const res = await fetch(`http://localhost:5001/tasks/${editedTask.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(editedTask),
+      });
+      const data = await res.json();
+      this.incompletedTasks = [...this.incompletedTasks, data];
     },
 
     async reminderToggle(id) {

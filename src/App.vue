@@ -1,7 +1,8 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" v-bind:showAddTask="showAddTask" @toggle-addTask="toggleAddTask" />
-    <router-view v-bind:showAddTask="showAddTask"></router-view>
+    <Header title="Task Tracker" v-bind:showAddTask="showAddTask" @toggle-addTask="toggleAddTask"
+      :isUserLoggedIn="isUserLoggedIn" />
+    <router-view v-bind:showAddTask="showAddTask" v-if="isUserLoggedIn"></router-view>
     <Footer />
   </div>
 </template>
@@ -13,7 +14,7 @@ export default {
   name: "App",
   components: { Header, Footer },
   data() {
-    return { showAddTask: false }
+    return { showAddTask: false, isUserLoggedIn: false }
   },
   methods: {
     toggleAddTask() {
@@ -47,27 +48,29 @@ body {
 }
 
 .btn {
- display: inline-block;
- background: #000;
- color: #fff;
- border: none;
- padding: 10px 20px;
- margin: 5px;
- border-radius: 5px;
- cursor: pointer;
- text-decoration: none;
- font-size: 15px;
- font-family: inherit;
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
 }
- 
+
 .btn:focus {
- outline: none;
+  outline: none;
 }
+
 .btn:active {
- transform: scale(0.98);
+  transform: scale(0.98);
 }
+
 .btn-block {
- display: block;
- width: 100%;
+  display: block;
+  width: 100%;
 }
 </style>

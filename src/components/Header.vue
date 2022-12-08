@@ -3,7 +3,8 @@
     <div class="header">
       <h1>{{ title }}</h1>
     </div>
-    <div class="buttons">
+    <Login :is-user-logged-in="isUserLoggedIn" />
+    <div class="buttons" v-if="isUserLoggedIn">
       <Button eventName="Add-Task" v-bind:text="showAddTask ? 'Close task' : 'Add task'"
         v-bind:color="showAddTask ? 'red' : 'green'" @Add-Task="handleAddTask" />
     </div>
@@ -12,14 +13,16 @@
 
 <script>
 import Button from './Button.vue';
+import Login from './Login.vue'
 export default {
   name: "Header",
   props: {
     title: String,
-    showAddTask: Boolean
+    showAddTask: Boolean,
+    isUserLoggedIn: Boolean
   },
   components: {
-    Button
+    Button, Login
   },
   methods: {
     handleAddTask() {
