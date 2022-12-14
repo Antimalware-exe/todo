@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" v-bind:showAddTask="showAddTask" @toggle-addTask="toggleAddTask"
-      :isUserLoggedIn="isUserLoggedIn" @user-authenticated="authenticateUser" />
+      :isUserLoggedIn="isUserLoggedIn" @user-authenticated="authenticateUser" @user-logout="handleUserLogout" />
     <router-view v-bind:showAddTask="showAddTask" v-if="isUserLoggedIn" :userName="userName"></router-view>
     <Footer />
   </div>
@@ -21,9 +21,13 @@ export default {
       this.showAddTask = !this.showAddTask
     },
     authenticateUser(email) {
-      this.isUserLoggedIn = !this.isUserLoggedIn
+      this.isUserLoggedIn = true
       const encodedEmail = window.btoa(email)
       sessionStorage.setItem('username', encodedEmail)
+    },
+    handleUserLogout() {
+      this.isUserLoggedIn = false;
+      sessionStorage.setItem('username', '')
     }
   },
   async created() {
@@ -33,7 +37,7 @@ export default {
     const user = await res.json()
     console.log(decodedEmail)
     if (user.length === 1) {
-    
+
       this.userName = decodedEmail
       this.isUserLoggedIn = true;
     }

@@ -2,6 +2,7 @@
   <header>
     <div class="header">
       <h1>{{ title }}</h1>
+      <i class="fa fa-power-off" v-if="isUserLoggedIn" @click="handleLogout"></i>
     </div>
     <Login :isUserLoggedIn="isUserLoggedIn" @user-authenticated="authenticateUser" />
     <div class="buttons" v-if="isUserLoggedIn">
@@ -30,8 +31,11 @@ export default {
     }, authenticateUser(email) {
       this.$emit('user-authenticated', email)
     },
-    emits: ['toggle-addTask', 'user-authenticated']
-  }
+    handleLogout() { 
+      this.$emit('user-logout')
+    }
+  },
+  emits: ['toggle-addTask', 'user-authenticated','user-logout']
 }</script>
 
 <style scoped>
@@ -50,5 +54,16 @@ header {
 
 .buttons {
   display: flex;
+}
+
+.fa-power-off {
+  position: relative;
+  left: 45%;
+  font-size: 20px;
+  color: red;
+}
+
+.fa-power-off:hover {
+  cursor: pointer;
 }
 </style>
