@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-if="showAddTask">
-      <AddTask @new-task="createNewTask" />
+      <AddTask @new-task="createNewTask" :userName="userName"/>
     </div>
     <Tasks @delete-task="onDelete" @complete-toggle="completeToggle" @edit-task="onEditTask"
       @toggle-reminder="reminderToggle" v-bind:completedTasks='completedTasks'
@@ -17,7 +17,8 @@ import AddTask from '@/components/AddTask.vue'
 export default {
   name: 'HomeView',
   props: {
-    showAddTask: Boolean
+    showAddTask: Boolean,
+    userName: String
   },
   components: {
     Tasks, AddTask

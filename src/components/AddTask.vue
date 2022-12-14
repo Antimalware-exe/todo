@@ -21,6 +21,9 @@
 <script>
 export default {
   name: "AddTask",
+  props: {
+    userName: String
+  },
   data() {
     return {
       text: "",
@@ -44,7 +47,7 @@ export default {
         day: this.day,
         reminder: this.reminder,
         completed: this.completed,
-        createdBy: "dummy@test.com",
+        createdBy: this.userName,
       };
 
       this.text = "";

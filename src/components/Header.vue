@@ -3,7 +3,7 @@
     <div class="header">
       <h1>{{ title }}</h1>
     </div>
-    <Login :is-user-logged-in="isUserLoggedIn" />
+    <Login :isUserLoggedIn="isUserLoggedIn" @user-authenticated="authenticateUser" />
     <div class="buttons" v-if="isUserLoggedIn">
       <Button eventName="Add-Task" v-bind:text="showAddTask ? 'Close task' : 'Add task'"
         v-bind:color="showAddTask ? 'red' : 'green'" @Add-Task="handleAddTask" />
@@ -27,8 +27,10 @@ export default {
   methods: {
     handleAddTask() {
       this.$emit('toggle-addTask')
+    }, authenticateUser(email) {
+      this.$emit('user-authenticated', email)
     },
-    emits: ['toggle-addTask']
+    emits: ['toggle-addTask', 'user-authenticated']
   }
 }</script>
 

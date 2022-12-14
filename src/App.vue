@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" v-bind:showAddTask="showAddTask" @toggle-addTask="toggleAddTask"
-      :isUserLoggedIn="isUserLoggedIn" />
-    <router-view v-bind:showAddTask="showAddTask" v-if="isUserLoggedIn"></router-view>
+      :isUserLoggedIn="isUserLoggedIn" @user-authenticated="authenticateUser" />
+    <router-view v-bind:showAddTask="showAddTask" v-if="isUserLoggedIn" :userName="userName"></router-view>
     <Footer />
   </div>
 </template>
@@ -14,11 +14,28 @@ export default {
   name: "App",
   components: { Header, Footer },
   data() {
-    return { showAddTask: false, isUserLoggedIn: false }
+    return { userName: '', showAddTask: false, isUserLoggedIn: false }
   },
   methods: {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
+    },
+    authenticateUser(email) {
+      this.isUserLoggedIn = !this.isUserLoggedIn
+      const encodedEmail = window.btoa(email)
+      sessionStorage.setItem('username', encodedEmail)
+    }
+  },
+  async created() {
+    let userName = sessionStorage.getItem("username")
+    const decodedEmail = window.atob(userName)
+    const res = await fetch(`http://localhost:5001/users?email=${decodedEmail}`)
+    const user = await res.json()
+    console.log(decodedEmail)
+    if (user.length === 1) {
+    
+      this.userName = decodedEmail
+      this.isUserLoggedIn = true;
     }
   }
 };

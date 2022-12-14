@@ -58,7 +58,15 @@ export default {
     async onSubmit(e) {
       e.preventDefault();
       if (this.email.length > 6 && this.email.includes('@') && this.password.length > 6) {
-        if (this.isLoginActive) { }
+        if (this.isLoginActive) {
+          const res = await fetch(`http://localhost:5001/users?email=${this.email}`)
+          const user = await res.json();
+
+          user.length > 0 ?
+            (bcrypt.compareSync(this.password, user[0].password) ?
+              (this.$emit('user-authenticated', this.email), this.isLoginActive = false) : alert("Username and password does not match"))
+            : alert('User does not exists')
+        }
         else if (this.isRegisterActive) {
           const users = await fetch(`http://localhost:5001/users?email=${this.email}`)
           const username = await users.json();

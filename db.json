@@ -11,7 +11,7 @@
     {
       "text": "hello",
       "day": "world",
-      "reminder": false,
+      "reminder": true,
       "completed": false,
       "createdBy": "dummy@test.com",
       "id": 3
@@ -23,6 +23,22 @@
       "completed": false,
       "createdBy": "dummy@test.com",
       "id": 4
+    },
+    {
+      "text": "New task test",
+      "day": "some datetime",
+      "reminder": true,
+      "completed": false,
+      "createdBy": "",
+      "id": 5
+    },
+    {
+      "text": "latest task",
+      "day": "jdh",
+      "reminder": true,
+      "completed": false,
+      "createdBy": "newtest@gmail.com",
+      "id": 6
     }
   ],
   "users": [
@@ -32,7 +48,7 @@
       "id": 1
     },
     {
-      "user": "newtest@gmail.com",
+      "email": "newtest@gmail.com",
       "password": "$2a$10$PpjQxoQKlZymCbkY3irUSONTbHkzoYr3yIoyuVuAPKfvK.2d3luOG",
       "id": 2
     }
